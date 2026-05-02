@@ -10,6 +10,16 @@ export interface UserFields {
   __confirmPassword: string;
 }
 
+type CafeWithRating = {
+  _id: Types.ObjectId;
+  title: string;
+  description: string;
+  user: Types.ObjectId;
+  images: string[];
+  total: number;
+  overal: number;
+};
+
 export interface CafeCreateType {
   title: string;
   description: string;

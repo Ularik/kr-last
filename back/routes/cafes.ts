@@ -1,9 +1,9 @@
 import express from "express";
 import CafeOrm from "../models/Cafe";
+import CafeRatingsOrm from "../models/CafeRatings";
 import { Error } from "mongoose";
-import config from "../config";
 import { imagesUpload } from "../middleware/multer";
-import { CafeCreateType } from "../types";
+import { CafeCreateType, CafeWithRating } from "../types";
 import auth, { RequestWithUser } from "../middleware/auth";
 
 const cafeRouter = express.Router();
@@ -46,7 +46,21 @@ cafeRouter.post(
 
 cafeRouter.get("/", async (req, res) => {
     const cafeList = await CafeOrm.find();
-    return res.send(cafeList);
+
+    const cafeListWithRate: CafeWithRating[] = [];
+
+    for (const cafe of cafeList) {
+      const cafeObj = {...cafe.toObject(), total: 0, overal: 0};
+      const ratings = await CafeRatingsOrm.find({cafe: cafeObj._id});
+      const total = ratings.length;
+      const overalRating = ratings.map(rating => rating.overal).reduce((rate, acc) => acc! + rate!, 0);
+      cafeObj.total = total;
+      cafeObj.overal = overalRating || 0;
+
+      cafeListWithRate.push(cafeObj);
+    };
+
+    return res.send(cafeListWithRate);
 });
 
 

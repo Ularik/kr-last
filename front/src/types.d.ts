@@ -44,6 +44,8 @@ export interface Cafe {
   description: string;
   user: string;
   images: string[];
+  total: number;
+  overal: number;
 }
 
 export interface CafePost {
