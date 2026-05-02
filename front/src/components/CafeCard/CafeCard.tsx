@@ -44,7 +44,7 @@ const CafeCard: React.FC<Props> = ({ cafe }) => {
           <Typography>{cafe.title}</Typography>
           <Rating
             name="half-rating-read"
-            defaultValue={cafe.overal}
+            value={cafe.overal}
             precision={0.5}
             readOnly
           />
