@@ -5,7 +5,6 @@ export interface User {
   avatar: string;
 }
 
-
 export interface ValidationError {
   errors: {
     [key: string]: {
@@ -32,4 +31,22 @@ export interface RegisterMutation {
 export interface LoginMutation {
   username: string;
   password: string;
+}
+
+export interface Cafe {
+  _id: string;
+  title: string;
+  user: string;
+  images: string[];
+}
+
+export interface Rating {
+  _id: string;
+  user: string;
+  cafe: string;
+  food: number;
+  service: number;
+  interior: number;
+  overal: number;
+  createdAt: Date;
 }

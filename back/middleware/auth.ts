@@ -1,15 +1,13 @@
 import { NextFunction, Request, Response, RequestHandler } from "express";
 import { UserFields } from "../types";
 import { HydratedDocument } from "mongoose";
-import UsersOrm from "../models/Users";
-import jwt, { TokenExpiredError } from 'jsonwebtoken';
+import UsersOrm from "../models/User";
+import jwt, { TokenExpiredError } from "jsonwebtoken";
 import config from "../config";
 
-
-export interface RequestWithUser extends Request {  
+export interface RequestWithUser extends Request {
   user: HydratedDocument<UserFields>;
 }
-
 
 export const authOrNot: RequestHandler = async (
   expressReq: Request,
@@ -58,6 +56,5 @@ const auth: RequestHandler = async (
     next();
   });
 };
-
 
 export default auth;

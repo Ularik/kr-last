@@ -1,3 +1,5 @@
+import { Types } from "mongoose";
+
 export interface UserFields {
   username: string;
   password: string;
@@ -8,8 +10,17 @@ export interface UserFields {
   __confirmPassword: string;
 }
 
-export interface ComingMessage {
-  type: "SEND_MESSAGE" | "LOGIN" | "LOGOUT";
-  user: string;
-  payload: string;
+export interface CafeCreateType {
+  title: string;
+  user: Types.ObjectId;
+  images: string[] | null;
+}
+
+export interface RatingType {
+  user: Types.ObjectId;
+  cafe: Types.ObjectId;
+  description: string;
+  food: number;
+  service: number;
+  interior: number;
 }

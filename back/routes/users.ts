@@ -1,10 +1,9 @@
 import express from "express";
-import UsersOrm from "../models/Users";
+import UsersOrm from "../models/User";
 import { Error } from "mongoose";
 import jwt from "jsonwebtoken";
 import config from "../config";
 import { imagesUpload } from "../middleware/multer";
-import { OAuth2Client } from "google-auth-library";
 
 const usersRouter = express.Router();
 
@@ -14,11 +13,6 @@ const createAccessToken = (id: string) => {
   });
 };
 
-const createRefreshToken = (id: string) => {
-  return jwt.sign({ _id: id }, config.refreshSecret, {
-    expiresIn: "30h",
-  });
-};
 
 usersRouter.post("/", imagesUpload.single("avatar"), async (req, res, next) => {
   const data = {
@@ -55,7 +49,6 @@ usersRouter.post("/", imagesUpload.single("avatar"), async (req, res, next) => {
     return next(err);
   }
 });
-
 
 usersRouter.post("/sessions", async (req, res, next) => {
   const username = req.body.username;
@@ -121,7 +114,6 @@ usersRouter.delete("/sessions", async (req, res, next) => {
     next(e);
   }
 });
-
 
 // refresh token
 usersRouter.post("/token", async (req, res, next) => {

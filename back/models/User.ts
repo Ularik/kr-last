@@ -101,6 +101,6 @@ UserSchema.methods.checkPassword = function (password) {
   return argon2.verify(this.password, password);
 };
 
-const UserOrm = mongoose.model("users", UserSchema);
+const UserOrm = mongoose.model("User", UserSchema);
 
 export default UserOrm;

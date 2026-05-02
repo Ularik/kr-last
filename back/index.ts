@@ -5,6 +5,8 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import usersRouter from "./routes/users";
+import cafeRouter from "./routes/cafes";
+import cafeRatingRouter from "./routes/cafeRating";
 import config from "./config";
 import cookieParser from "cookie-parser";
 
@@ -23,6 +25,9 @@ app.use(express.static(config.publicPath));
 const port = 8001;
 
 app.use("/users", usersRouter);
+app.use("/cafes", cafeRouter);
+app.use("/ratings", cafeRatingRouter);
+
 const run = async () => {
   await mongoose.connect(config.db);
   app.listen(port, () => {
