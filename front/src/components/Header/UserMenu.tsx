@@ -32,19 +32,27 @@ const UserMenu: React.FC<Props> = ({ user }) => {
       <Button
         variant="text"
         component={NavLink}
-        to="/add-treck"
+        to="/add-new-cafe"
         color="inherit"
       >
         Add New Place
       </Button>
       <Button onClick={handleClick} color="inherit">
         {user.avatar && (
-          <Box sx={{ width: "50px", height: "50px", borderRadius: "50%", overflow: 'hidden', marginRight: 1 }}>
+          <Box
+            sx={{
+              width: "50px",
+              height: "50px",
+              borderRadius: "50%",
+              overflow: "hidden",
+              marginRight: 1,
+            }}
+          >
             <img
               style={{
                 width: "100%",
                 height: "100%",
-                objectFit: 'contain',
+                objectFit: "contain",
                 display: "block",
               }}
               src={`${BASE_URL + "/" + user.avatar}`}

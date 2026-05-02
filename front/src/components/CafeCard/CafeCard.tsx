@@ -20,8 +20,8 @@ const CafeCard: React.FC<Props> = ({ cafe }) => {
       >
         <Box
           sx={{
-            width: "100%",
-            maxHeight: "200px",
+            width: "100%", 
+            height: "200px", 
             overflow: "hidden",
             borderRadius: "10px",
           }}
@@ -30,7 +30,7 @@ const CafeCard: React.FC<Props> = ({ cafe }) => {
             style={{
               width: "100%",
               height: "100%",
-              objectFit: "contain",
+              objectFit: "cover", 
             }}
             src={BASE_URL + "/" + cafe.images[0]}
             alt="Cafe image"
@@ -46,7 +46,9 @@ const CafeCard: React.FC<Props> = ({ cafe }) => {
           />
           <Typography variant="subtitle2">{`(${cafe.overal.toFixed(1)}, ${cafe.total} reviews)`}</Typography>
 
-          <Typography variant="subtitle2">{cafe.images.length} Photos</Typography>
+          <Typography variant="subtitle2">
+            {cafe.images.length} Photos
+          </Typography>
         </Box>
       </Grid>
     );

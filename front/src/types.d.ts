@@ -51,8 +51,7 @@ export interface Cafe {
 export interface CafePost {
   title: string;
   description: string;
-  user: string;
-  images: string[];
+  images: File[];
   isAgree: boolean;
 }
 

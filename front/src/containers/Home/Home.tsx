@@ -15,7 +15,7 @@ const Home = () => {
     }, [dispatch])
     return (
       <>
-        <Typography>All Places</Typography>
+        <Typography variant="h4">All Places</Typography>
         <Grid container spacing={2}>
           {cafeList.map((cafe) => (
             <CafeCard key={cafe._id} cafe={cafe} />

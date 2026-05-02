@@ -26,7 +26,7 @@ cafeRouter.post(
       isAgree: req.body.isAgree,
     };
 
-    if (!req.body.isAgree)
+    if (req.body.isAgree === 'false')
       return res.status(400).send({ error: "You must agree" });
 
     delete cafeData.isAgree;
@@ -39,10 +39,12 @@ cafeRouter.post(
         if (e instanceof Error.ValidationError) {
             return res.status(400).send(e);
         }
+
         return next(e);
     }
-  },
+  }
 );
+
 
 cafeRouter.get("/", async (req, res) => {
     const cafeList = await CafeOrm.find();

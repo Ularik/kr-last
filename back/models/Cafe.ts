@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import { Types } from "mongoose";
 import UserOrm from "./User";
+import uniqueValidator from "mongoose-unique-validator";
+
 
 const CafeSchema = new mongoose.Schema({
   title: {
@@ -32,6 +34,10 @@ const CafeSchema = new mongoose.Schema({
       message: "At least one image is required!",
     },
   },
+});
+
+CafeSchema.plugin(uniqueValidator, {
+  message: "{PATH} должно быть уникальным.",
 });
 
 const CafeOrm = mongoose.model("Cafe", CafeSchema);

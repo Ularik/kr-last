@@ -1,18 +1,20 @@
-import type { GlobalError, Cafe } from "../../types";
+import type { GlobalError, ValidationError, Cafe } from "../../types";
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchCafes } from "./cafesThunks";
+import { fetchCafes, createCafe } from "./cafesThunks";
 
 
 interface CafeState {
   cafes: Cafe[];
-  fetchLoading: boolean;
+  isLoading: boolean;
   fetchError: GlobalError | null;
+  createError: ValidationError | GlobalError | null
 }
 
 const initialState: CafeState = {
   cafes: [],
-  fetchLoading: false,
+  isLoading: false,
   fetchError: null,
+  createError: null,
 };
 
 export const cafesSlice = createSlice({
@@ -21,16 +23,28 @@ export const cafesSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchCafes.pending, (state) => {
-      state.fetchLoading = true;
+      state.isLoading = true;
       state.fetchError = null;
     });
     builder.addCase(fetchCafes.fulfilled, (state, { payload: data }) => {
-      state.fetchLoading = false;
+      state.isLoading = false;
       state.cafes = data;
     });
     builder.addCase(fetchCafes.rejected, (state, { payload: error }) => {
-      state.fetchLoading = false;
+      state.isLoading = false;
       state.fetchError = error || null;
+    });
+
+    builder.addCase(createCafe.pending, (state) => {
+      state.isLoading = true;
+      state.fetchError = null;
+    });
+    builder.addCase(createCafe.fulfilled, (state) => {
+      state.isLoading = false;
+    });
+    builder.addCase(createCafe.rejected, (state, { payload: error }) => {
+      state.isLoading = false;
+      state.createError = error || null;
     });
   },
 });
