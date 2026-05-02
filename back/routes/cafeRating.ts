@@ -5,6 +5,7 @@ import type { RatingType } from "../types";
 import auth, { RequestWithUser } from "../middleware/auth";
 import mongoose from "mongoose";
 import CafeRatingsOrm from "../models/CafeRatings";
+import permit from "../middleware/peermit";
 
 const cafeRatingRouter = express.Router();
 
@@ -71,6 +72,33 @@ cafeRatingRouter.get("/:cafeId", async (req, res) => {
 
 
   return res.send(result);
+});
+
+
+cafeRatingRouter.delete("/:cafeId", auth, permit("admin"), async (req, res) => {
+ const { cafeId } = req.params;
+    const isValidId = mongoose.Types.ObjectId.isValid(cafeId as string);
+
+  if (!cafeId || !isValidId) {
+    return res.status(400).send({ error: "Invalid ID" });
+  }
+
+  const cafe = await CafeOrm.findById(cafeId);
+
+  if (!cafe) return res.status(400).send({ error: "Cafe does not exist" });
+
+    const { user } = req as RequestWithUser;
+
+    try {
+      await CafeRatingsOrm.deleteOne({
+        user: user._id,
+        cafe: cafe._id,
+      });
+    } catch(e) {
+      console.log(e);
+    }
+
+  return res.send({success: 'delete'});
 });
 
 export default cafeRatingRouter;

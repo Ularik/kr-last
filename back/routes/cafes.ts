@@ -6,6 +6,7 @@ import { imagesUpload } from "../middleware/multer";
 import { CafeCreateType, CafeWithRating } from "../types";
 import auth, { RequestWithUser } from "../middleware/auth";
 import mongoose from "mongoose";
+import permit from "../middleware/peermit";
 
 
 const cafeRouter = express.Router();
@@ -96,9 +97,12 @@ cafeRouter.get("/", async (req, res) => {
       const cafeObj = {...cafe.toObject(), total: 0, overal: 0};
       const ratings = await CafeRatingsOrm.find({cafe: cafeObj._id});
       const total = ratings.length;
-      const overalRating = ratings.map(rating => rating.overal).reduce((rate, acc) => acc! + rate!, 0);
+      const sumRating = ratings.reduce(
+        (acc, rating) => acc + (rating.overal || 0),
+        0,
+      );
       cafeObj.total = total;
-      cafeObj.overal = overalRating || 0;
+      cafeObj.overal = total > 0 ? Number((sumRating / total).toFixed(1)) : 0;
 
       cafeListWithRate.push(cafeObj);
     };
@@ -122,5 +126,18 @@ cafeRouter.get("/:cafeId", async (req, res) => {
   return res.send(cafe);
 });
 
+
+cafeRouter.delete("/:cafeId", auth, permit("admin"), async (req, res) => {
+  const { cafeId } = req.params;
+  const isValidId = mongoose.Types.ObjectId.isValid(cafeId as string);
+
+  if (!cafeId || !isValidId) {
+    return res.status(400).send({ error: "Invalid ID" });
+  }
+
+  await CafeOrm.deleteOne({_id: cafeId});
+
+  return res.send({success: "delete"});
+});
 
 export default cafeRouter;

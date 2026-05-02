@@ -3,6 +3,9 @@ import type { Cafe } from "../../types";
 import { BASE_URL } from "../../constants";
 import Rating from "@mui/material/Rating";
 import { NavLink } from "react-router";
+import { deleteCafe, fetchCafes } from "../../features/cafes/cafesThunks";
+import { useAppDispatch } from "../../app/hooks";
+
 
 interface Props {
     cafe: Cafe;
@@ -10,6 +13,8 @@ interface Props {
 
 
 const CafeCard: React.FC<Props> = ({ cafe }) => {
+  const dispatch = useAppDispatch();
+
     return (
       <Grid
         component={NavLink}

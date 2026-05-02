@@ -76,6 +76,20 @@ export const createCafe = createAsyncThunk<
 });
 
 
+export const deleteCafe = createAsyncThunk<
+  void,
+  string
+>("cafes/deleteCafe", async (cafeId) => {
+
+  try {
+    await axiosApi.delete(`cafes/${cafeId}`);
+  } catch(e) {
+    console.log(e);
+  }
+
+});
+
+
 export const sendImages = createAsyncThunk<
   Cafe,
   {cafeId: string, images: File[]},

@@ -1,6 +1,6 @@
 import type { GlobalError, ValidationError, Cafe } from "../../types";
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchCafes, createCafe, fetchOneCafes, sendImages } from "./cafesThunks";
+import { fetchCafes, createCafe, fetchOneCafes, sendImages, deleteCafe } from "./cafesThunks";
 
 
 interface CafeState {
@@ -75,6 +75,18 @@ export const cafesSlice = createSlice({
           state.isLoading = false;
           state.createError = error || null;
         });
+
+         builder.addCase(deleteCafe.pending, (state) => {
+           state.isLoading = true;
+           state.fetchError = null;
+         });
+         builder.addCase(deleteCafe.fulfilled, (state) => {
+           state.isLoading = false;
+         });
+         builder.addCase(deleteCafe.rejected, (state, { payload: error }) => {
+           state.isLoading = false;
+           state.fetchError = error || null;
+         });
   },
 });
 
