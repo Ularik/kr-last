@@ -8,6 +8,7 @@ import { selectUser } from "./features/users/usersSelectors";
 import { Container } from "@mui/material";
 import PrivateRouter from "./components/PrivateRouter/PrivateRouter";
 import CreateCafe from "./containers/Cafe/CreateCafe";
+import Cafe from "./containers/Cafe/Cafe";
 
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/cafe/:cafeId" element={<Cafe/>}/>
           <Route path="/add-new-cafe" element={ <PrivateRouter isAllowed={!!user}>
             <CreateCafe/>
           </PrivateRouter> }/>

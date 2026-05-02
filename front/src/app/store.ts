@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { usersReducer } from "../features/users/usersSlice.ts";
 import { cafesReducer } from "../features/cafes/cafesSlice.ts";
+import { ratingsReducer } from "../features/ratings/ratingsSlice.ts";
 import {
   FLUSH,
   PAUSE,
@@ -29,8 +30,9 @@ const userPersistConfig = {
 };
 
 const rootReducer = combineReducers({
-    users: persistReducer(userPersistConfig, usersReducer),
-    cafes: cafesReducer,
+  users: persistReducer(userPersistConfig, usersReducer),
+  cafes: cafesReducer,
+  ratings: ratingsReducer,
 });
 
 export const store = configureStore({

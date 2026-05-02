@@ -14,7 +14,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { selectRegisterError } from "../../features/users/usersSelectors";
 import { register } from "../../features/users/usersThunks";
 import { useNavigate } from "react-router";
-import FileInput from "../../components/UI/FileInput/FileInput";
+import FileInput from "../../components/FileInput/FileInput";
 
 
 const Register = () => {

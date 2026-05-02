@@ -59,6 +59,7 @@ export interface Rating {
   _id: string;
   user: UserLite;
   cafe: string;
+  description: string;
   food: number;
   service: number;
   interior: number;
@@ -67,6 +68,7 @@ export interface Rating {
 }
 
 export interface RatingPost {
+  description: string;
   food: number;
   service: number;
   interior: number;

@@ -26,6 +26,21 @@ export const fetchCafes = createAsyncThunk<
   }
 });
 
+export const fetchOneCafes = createAsyncThunk<
+  Cafe,
+  string,
+  { rejectValue: GlobalError }
+>("cafes/fetchOneCafe", async (cafeId, { rejectWithValue }) => {
+  try {
+    const response = await axiosApi.get<Cafe>(`/cafes/${cafeId}`);
+    return response.data;
+  } catch (e) {
+    if (isAxiosError(e) && e.response && e.response.status === 400) {
+      return rejectWithValue(e.response.data);
+    }
+    throw e;
+  }
+});
 
 
 export const createCafe = createAsyncThunk<
@@ -54,13 +69,32 @@ export const createCafe = createAsyncThunk<
     return response.data;
   } catch (e) {
     if (isAxiosError(e) && e.response && e.response.status === 400) {
-      return rejectWithValue(e.response.data as ValidationError);
-    }
-
-    if (isAxiosError(e) && e.response && e.response.status === 400) {
-      return rejectWithValue(e.response.data as GlobalError);
+      return rejectWithValue(e.response.data);
     }
     throw e;
   }
 });
+
+
+export const sendImages = createAsyncThunk<
+  Cafe,
+  {cafeId: string, images: File[]},
+  { rejectValue: GlobalError }
+>("cafes/uploadImages", async ({cafeId, images}, { rejectWithValue }) => {
+  const formData = new FormData();
+  images.forEach((image) => {
+    formData.append('images', image);
+  });
+
+  try {
+    const response = await axiosApi.patch<Cafe>(`/cafes/${cafeId}`, formData);
+    return response.data;
+  } catch (e) {
+    if (isAxiosError(e) && e.response && e.response.status === 400) {
+      return rejectWithValue(e.response.data);
+    }
+    throw e;
+  }
+});
+
 

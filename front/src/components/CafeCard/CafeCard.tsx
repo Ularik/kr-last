@@ -2,7 +2,7 @@ import { Grid, Box, Typography } from "@mui/material";
 import type { Cafe } from "../../types";
 import { BASE_URL } from "../../constants";
 import Rating from "@mui/material/Rating";
-
+import { NavLink } from "react-router";
 
 interface Props {
     cafe: Cafe;
@@ -12,8 +12,12 @@ interface Props {
 const CafeCard: React.FC<Props> = ({ cafe }) => {
     return (
       <Grid
+        component={NavLink}
+        to={`/cafe/${cafe._id}`}
         size={3}
         sx={{
+          color: 'inherit',
+          cursor: 'pointer',
           borderRadius: "10px",
           boxShadow: "0px 0px 4px 0px rgba(0,0,0,0.2)",
         }}

@@ -10,7 +10,6 @@ const CafeRatingSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
-      unique: true,
       validate: {
         validator: async (value: mongoose.Types.ObjectId) => {
           const user = await UserOrm.findById(value);

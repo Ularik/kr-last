@@ -35,15 +35,21 @@ cafeRatingRouter.post(
     };
 
     try {
-      let rating = await CafeRatingsOrm.findOne({user: user._id});
+      let rating = await CafeRatingsOrm.findOne({
+        user: user._id,
+        cafe: cafe._id,
+      });
+
       if (rating) {
-        rating.updateOne(ratingData);
+        console.log(rating)
+        rating.set(ratingData);
       } else {
         rating = new CafeRatingsOrm(ratingData);
       }
-      await rating.save();
-      return res.send(rating);
 
+      await rating.save();
+
+      return res.send(rating);
     } catch (e) {
       if (e instanceof Error.ValidationError) {
         return res.status(400).send(e);
