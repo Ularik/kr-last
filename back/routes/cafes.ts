@@ -20,9 +20,16 @@ cafeRouter.post(
 
     const cafeData: CafeCreateType = {
       title: req.body.title,
+      description: req.body.description,
       user: user._id,
       images: files ? files.map((file) => "images/" + file.filename) : null,
+      isAgree: req.body.isAgree,
     };
+
+    if (!req.body.isAgree)
+      return res.status(400).send({ error: "You must agree" });
+
+    delete cafeData.isAgree;
 
     try {
         const newCafe = new CafeOrm(cafeData);

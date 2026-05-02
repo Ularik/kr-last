@@ -12,8 +12,10 @@ export interface UserFields {
 
 export interface CafeCreateType {
   title: string;
+  description: string;
   user: Types.ObjectId;
   images: string[] | null;
+  isAgree?: boolean;
 }
 
 export interface RatingType {

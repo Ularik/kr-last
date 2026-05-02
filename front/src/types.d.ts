@@ -5,6 +5,11 @@ export interface User {
   avatar: string;
 }
 
+export interface UserLite {
+  _id: string;
+  username: string;
+}
+
 export interface ValidationError {
   errors: {
     [key: string]: {
@@ -36,17 +41,32 @@ export interface LoginMutation {
 export interface Cafe {
   _id: string;
   title: string;
+  description: string;
   user: string;
   images: string[];
 }
 
+export interface CafePost {
+  title: string;
+  description: string;
+  user: string;
+  images: string[];
+  isAgree: boolean;
+}
+
 export interface Rating {
   _id: string;
-  user: string;
+  user: UserLite;
   cafe: string;
   food: number;
   service: number;
   interior: number;
   overal: number;
   createdAt: Date;
+}
+
+export interface RatingPost {
+  food: number;
+  service: number;
+  interior: number;
 }

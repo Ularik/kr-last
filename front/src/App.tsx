@@ -5,18 +5,21 @@ import Login from "./containers/User/Login";
 import Header from "./components/Header/Header";
 import { useAppSelector } from "./app/hooks";
 import { selectUser } from "./features/users/usersSelectors";
+import { Container } from "@mui/material";
 
 
 const App = () => {
   const user = useAppSelector(selectUser);
   return (
     <>
-    <Header user={user}/>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
+      <Header user={user} />
+      <Container maxWidth="xl">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </Container>
     </>
   );
 };

@@ -32,21 +32,10 @@ const UserMenu: React.FC<Props> = ({ user }) => {
       <Button
         variant="text"
         component={NavLink}
-        to="/add-artist"
-        color="inherit"
-      >
-        Add Artist
-      </Button>
-      <Button variant="text" component={NavLink} to="add-album" color="inherit">
-        Add Album
-      </Button>
-      <Button
-        variant="text"
-        component={NavLink}
         to="/add-treck"
         color="inherit"
       >
-        Add Treck
+        Add New Place
       </Button>
       <Button onClick={handleClick} color="inherit">
         {user.avatar && (
@@ -71,11 +60,6 @@ const UserMenu: React.FC<Props> = ({ user }) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem>
-          <Button component={NavLink} to="/history" color="inherit">
-            listening history
-          </Button>
-        </MenuItem>
         <MenuItem onClick={logoutClick}>Logout</MenuItem>
       </Menu>
     </Box>
